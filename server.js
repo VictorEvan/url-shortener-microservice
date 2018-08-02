@@ -30,7 +30,7 @@ promise.then(function(db) {
   //     if (err) return console.error(err)
   //     console.log('counter inserted');
   //   });
-  // })
+  // });
 });
 
 app.use(cors());
@@ -52,9 +52,10 @@ app.post("/api/shorturl/new/", function (req, res) {
   // if validated
   if (userUrl.match(urlValidator)) {
     // create search query for database
-    Url.findOne({fullUrl: userUrl},function(err, data) {
+    Url.findOne({full_url: userUrl},function(err, data) {
       // if already existing
       if (data) {
+        console.log('data exists', data);
         res.json({
           original_url: userUrl,
           short_url: `https://ve-url-shortener-microservice.glitch.me/api/shorturl/${data._id}`
